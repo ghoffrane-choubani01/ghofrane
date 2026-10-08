@@ -22,15 +22,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install Gitleaks
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/master/install.sh | sh -s -- -b /usr/local/bin
-
       - name: Run Gitleaks
         run: |
-          gitleaks detect \
-            --source . \
-            --config .gitleaks.toml \
-            --baseline-path gitleaks-baseline.json \
+          docker run --rm \
+            -v "${{ github.workspace }}:/repo" \
+            zricethezav/gitleaks:latest \
+            detect \
+            --source=/repo \
+            --config=/repo/.gitleaks.toml \
+            --baseline-path=/repo/gitleaks-baseline.json \
             --redact \
-            --exit-code 1
+            --exit-code=1
