@@ -1,0 +1,11 @@
+title = "Gitleaks configuration - OWASP Juice Shop"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Known test data and intentionally vulnerable content of OWASP Juice Shop"
+paths = [
+    '''test/''',
+    '''data/'''
+]
